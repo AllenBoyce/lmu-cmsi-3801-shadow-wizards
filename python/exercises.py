@@ -17,7 +17,11 @@ def change(amount: int) -> dict[int, int]:
 
 
 # Write your powers generator here
-
+def powers_generator(base, limit):
+    current_power = 0
+    while base ** current_power <= limit:
+        yield base ** current_power
+        current_power+=1
 
 # Write your say function here
 
