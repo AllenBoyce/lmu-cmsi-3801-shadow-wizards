@@ -14,7 +14,11 @@ def change(amount: int) -> dict[int, int]:
 
 
 # Write your first then lower case function here
-
+def first_then_lower_case(list_of_strings: list[str], predicate):
+    for string in list_of_strings:
+        if predicate(string):
+            return string.lower()
+    return None
 
 # Write your powers generator here
 def powers_generator(base, limit):
@@ -25,8 +29,6 @@ def powers_generator(base, limit):
 
 # Write your say function here
 
-
 # Write your line count function here
-
 
 # Write your Quaternion class here
