@@ -21,6 +21,13 @@ export function firstThenLowerCase(arrayOfStrings, predicate) {
   return check?.toLowerCase()
 }
 // Write your powers generator here
+export function* powersGenerator({ ofBase, upTo }) {
+  let currentPower = 0
+  while (Math.pow(ofBase, currentPower) <= upTo) {
+    yield Math.pow(ofBase, currentPower)
+    currentPower++
+  }
+}
 
 // Write your say function here
 
