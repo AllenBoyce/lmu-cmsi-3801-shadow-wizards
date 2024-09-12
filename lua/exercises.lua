@@ -27,6 +27,15 @@ function first_then_lower_case(table_of_strings, predicate)
   return nil
 end
 -- Write your powers generator here
+function powers_generator(ofBase, upTo)
+  return coroutine.create(function()
+    local currentPower = 0
+    while ofBase ^ currentPower <= upTo do
+      coroutine.yield(ofBase ^ currentPower)
+      currentPower = currentPower + 1
+    end
+  end)
+end
 
 -- Write your say function here
 
