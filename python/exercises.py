@@ -32,14 +32,17 @@ def powers_generator(base, limit):
 # Write your line count function here
 def meaningful_line_count(file_name: str) -> int:
     line_count: int = 0
-    with open(file_name, 'r', encoding="utf8") as file_to_check:
-        for line in file_to_check:
-            if line.strip() == "":
-                continue
-            elif line.strip()[0] == "#":
-                continue
-            else:
-                line_count += 1
+    try:
+        with open(file_name, 'r', encoding="utf8") as file_to_check:
+            for line in file_to_check:
+                if line.strip() == "":
+                    continue
+                elif line.strip()[0] == "#":
+                    continue
+                else:
+                    line_count += 1
+    except:
+        raise FileNotFoundError ("No such file")
     return line_count
 
 # Write your Quaternion class here
