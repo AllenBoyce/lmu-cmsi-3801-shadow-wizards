@@ -32,5 +32,19 @@ export function* powersGenerator({ ofBase, upTo }) {
 // Write your say function here
 
 // Write your line count function here
+export async function meaningfulLineCount(fileName) {
+  let lineCount = 0
+  const fileToCheck = await open(fileName, "r")
+  for await (const line of fileToCheck.readLines()) {
+    if (line.trim() === "") {
+      continue
+    } else if (line.trim()[0] === "#") {
+      continue
+    } else {
+      lineCount++
+    }
+  }
+  return lineCount
+}
 
 // Write your Quaternion class here
