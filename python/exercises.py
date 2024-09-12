@@ -14,7 +14,7 @@ def change(amount: int) -> dict[int, int]:
 
 
 # Write your first then lower case function here
-def first_then_lower_case(list_of_strings: list[str], predicate):
+def first_then_lower_case(list_of_strings: list[str], predicate: Callable):
     for string in list_of_strings:
         if predicate(string):
             return string.lower()
@@ -30,5 +30,16 @@ def powers_generator(base, limit):
 # Write your say function here
 
 # Write your line count function here
+def meaningful_line_count(file_name: str) -> int:
+    line_count: int = 0
+    with open(file_name, 'r', encoding="utf8") as file_to_check:
+        for line in file_to_check:
+            if line.strip() == "":
+                continue
+            elif line.strip()[0] == "#":
+                continue
+            else:
+                line_count += 1
+    return line_count
 
 # Write your Quaternion class here
