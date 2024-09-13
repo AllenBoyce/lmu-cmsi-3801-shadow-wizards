@@ -139,6 +139,7 @@ function Quaternion.__tostring(self)
   return string
 end
 
+--Returns a new Quaternion that represents the sum of the two Quaternions added.
 function Quaternion.__add(q1, q2)
   return Quaternion.new(
       q1.a + q2.a,
@@ -148,6 +149,7 @@ function Quaternion.__add(q1, q2)
   )
 end
 
+--Returns a new Quaternion that represents the pro of the two Quaternions multiplied.
 function Quaternion.__mul(q1, q2)
   return Quaternion.new(
       q1.a * q2.a - q1.b * q2.b - q1.c * q2.c - q1.d * q2.d,
@@ -157,14 +159,6 @@ function Quaternion.__mul(q1, q2)
   )
 end
 
-function Quaternion.__add(q1, q2)
-  return Quaternion.new(
-      q1.a + q2.a,
-      q1.b + q2.b,
-      q1.c + q2.c,
-      q1.d + q2.d
-  )
-end
 
 function Quaternion.__mul(q1, q2)
   return Quaternion.new(
