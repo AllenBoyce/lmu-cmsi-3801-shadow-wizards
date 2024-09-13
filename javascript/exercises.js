@@ -36,16 +36,18 @@ function say(word) {
   if (word === undefined) {
     return "";
   }
-
+//if there is no string or it is blank it'll return nothing
   function chain(next) {
     if (next === undefined) {
       return accumulated;
     } else {
       if (accumulated.length > 0) {
         accumulated += " " + next;
+//if there is no word next then it'll go back and reprint the previous words
       } else {
         accumulated = next;
       }
+//this joins the different words to make them 'whole'
       return chain;
     }
   }
