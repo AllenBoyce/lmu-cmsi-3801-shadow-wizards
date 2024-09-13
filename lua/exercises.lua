@@ -40,5 +40,21 @@ end
 -- Write your say function here
 
 -- Write your line count function here
+  function meaningful_line_count(file_name)
+    local line_count = 0
+    local file_to_check = io.open(file_name, 'r')
+    if file_to_check then
+      for line in file_to_check:lines() do
+        if line:gsub('%s+', '') == '' then
+        elseif string.sub(line:gsub ('%s+', ''), 1, 1) == '#' then
+        else 
+          line_count = line_count + 1
+        end
+      end
+    else
+      error("No such file")
+    end
+    return line_count
+  end
 
 -- Write your Quaternion table here
