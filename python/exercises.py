@@ -71,20 +71,44 @@ class Quaternion:
 
 
     def __str__(self):
-        stringVer = ""
-        coefTypes=["", "i", "j", "k"]
-        for i in range(len(self.coefficients)):
-            if(not self.coefficients[i] == 0):
-                if(self.coefficients[i] == 1):
-                    stringVer += "%s" % (coefTypes[i])
-                else:
-                    stringVer += "%s%s" % (self.coefficients[i], coefTypes[i])
-            if(i < len(self.coefficients)-1):
-                if(self.coefficients[i+1] > 0):
-                    stringVer += "+"
-        if stringVer == "":
+        string = ""
+        coefficients = self.coefficients
+
+        # The variables that correspond to each part of the Quaternion. 
+        # The first element is an empty string because there is no variable.
+        variable_letters = ["", "i", "j", "k"]
+
+        for i in range(4):
+            # The first variable is an exception since it doesn't have a variable to it.
+            # We just want to add its coefficient, so long as it isn't 0.
+            if i == 0 and coefficients[0] != 0:
+                string += str(coefficients[i])
+            else:
+                # If the coefficient is zero, skip this variable
+                if coefficients[i] != 0:
+                    # If the coefficient is 1, we want to skip adding 1 to the string, UNLESS it's the first variable
+                    if coefficients[i] != 1:
+                        # If the coefficient is negative 1, just add '-' instead of -1
+                        if coefficients[i] == -1:
+                            string += "-"
+                        # Otherwise, add the whole coefficient: sign and value.
+                        else:
+                            string += str(coefficients[i])
+                    
+                    # Add the variable letter after the coefficient.
+                    string += variable_letters[i]
+
+            # Add the plus according to the value of the next coefficient.
+            # If this is the last coefficient, there'll be no plus.
+            # If the string is empty, don't add the plus operator.
+            if i < 3 and string != "":
+                if coefficients[i+1] > 0:
+                    string += "+"
+
+        # If the string is empty at this point, there's no value in the Quaternion, and it's equal to 0.
+        if string == "":
             return "0"
-        return stringVer
+        return string
     
     def __add__(self, addend):
         return Quaternion(self.a + addend.a, self.b + addend.b, self.c + addend.c, self.d + addend.d)
@@ -107,4 +131,4 @@ class Quaternion:
     
     @property
     def coefficients(self):
-        return [self.a, self.b, self.c, self.d]
+        return (self.a, self.b, self.c, self.d)
