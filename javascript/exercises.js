@@ -30,30 +30,29 @@ export function* powersGenerator({ ofBase, upTo }) {
 }
 
 // Write your say function here
-function say(word) {
-  let accumulated = word || "";
+export function say(word) {
+  let accumulated = word || ""
 
   if (word === undefined) {
-    return "";
+    return ""
   }
-//if there is no string or it is blank it'll return nothing
+  //if there is no string or it is blank it'll return nothing
   function chain(next) {
     if (next === undefined) {
-      return accumulated;
+      return accumulated
     } else {
       if (accumulated.length > 0) {
-        accumulated += " " + next;
-//if there is no word next then it'll go back and reprint the previous words
+        accumulated += " " + next
+        //if there is no word next then it'll go back and reprint the previous words
       } else {
-        accumulated = next;
+        accumulated = next
       }
-//this joins the different words to make them 'whole'
-      return chain;
+      //this joins the different words to make them 'whole'
+      return chain
     }
   }
-  return chain;
+  return chain
 }
-
 
 // Write your line count function here
 export async function meaningfulLineCount(fileName) {
@@ -111,19 +110,20 @@ export class Quaternion {
     const coefTypes = ["", "i", "j", "k"]
     let stringVer = ""
 
+    //Run this loop 4 times, one for each coefficient in the Quaternion
     for (let i = 0; i < 4; i++) {
-      const coef = this.coefficients[i]
-      if (coef !== 0) {
-        if (stringVer !== "" && coef > 0) {
+      const currentCoefficient = this.coefficients[i]
+      if (currentCoefficient !== 0) {
+        if (stringVer !== "" && currentCoefficient > 0) {
           stringVer += "+"
         }
 
-        if (coef === 1 && i !== 0) {
+        if (currentCoefficient === 1 && i !== 0) {
           stringVer += coefTypes[i]
-        } else if (coef === -1 && i !== 0) {
+        } else if (currentCoefficient === -1 && i !== 0) {
           stringVer += `-${coefTypes[i]}`
         } else {
-          stringVer += `${coef}${coefTypes[i]}`
+          stringVer += `${currentCoefficient}${coefTypes[i]}`
         }
       }
     }
