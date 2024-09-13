@@ -31,27 +31,21 @@ export function* powersGenerator({ ofBase, upTo }) {
 
 // Write your say function here
 export function say(word) {
-  let accumulated = word || ""
-
   if (word === undefined) {
-    return ""
+    return "";
   }
-  //if there is no string or it is blank it'll return nothing
+//if there is no string or it is blank it'll return nothing
   function chain(next) {
     if (next === undefined) {
-      return accumulated
+      return word;
     } else {
-      if (accumulated.length > 0) {
-        accumulated += " " + next
-        //if there is no word next then it'll go back and reprint the previous words
-      } else {
-        accumulated = next
-      }
-      //this joins the different words to make them 'whole'
-      return chain
+    //if there is no word next then it'll go back and reprint the previous words
+      return say(word + " " + next);
     }
+    //this joins the different words to make them 'whole'
   }
-  return chain
+
+  return chain;
 }
 
 // Write your line count function here
