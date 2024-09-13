@@ -27,11 +27,16 @@ function first_then_lower_case(table_of_strings, predicate)
   return nil
 end
 -- Write your powers generator here
+
+--Generates a series of exponents with the same base and an incrementing power, until the exponents value surpasses a given limit
 function powers_generator(ofBase, upTo)
   return coroutine.create(function()
+    --The power starts at 0.
     local currentPower = 0
     while ofBase ^ currentPower <= upTo do
+      --Yield the current exponent value
       coroutine.yield(ofBase ^ currentPower)
+      --Increment the power
       currentPower = currentPower + 1
     end
   end)
@@ -74,6 +79,8 @@ end
 -- Write your Quaternion table here
 Quaternion = {}
 Quaternion.__index = Quaternion
+
+--Constructor that takes in coefficients
 function Quaternion.new(a, b,c,d)
   local self = setmetatable({}, Quaternion)
   self.a = a
@@ -83,11 +90,13 @@ function Quaternion.new(a, b,c,d)
   return self
 end
 
-
+--Returns a table consisting of this Quaternion's coefficients
 function Quaternion:coefficients()
   return {self.a, self.b, self.c, self.d}
 end
 
+--Returns the string value of the Quaternion.
+--String is represented as an equation consisting of the sum of all the Quaternion's parts
 function Quaternion.__tostring(self)
   local string = ""
   local coefficients = self:coefficients()
@@ -149,7 +158,7 @@ function Quaternion.__add(q1, q2)
   )
 end
 
---Returns a new Quaternion that represents the pro of the two Quaternions multiplied.
+--Returns a new Quaternion that represents the product of the two Quaternions multiplied.
 function Quaternion.__mul(q1, q2)
   return Quaternion.new(
       q1.a * q2.a - q1.b * q2.b - q1.c * q2.c - q1.d * q2.d,
@@ -159,20 +168,12 @@ function Quaternion.__mul(q1, q2)
   )
 end
 
-
-function Quaternion.__mul(q1, q2)
-  return Quaternion.new(
-      q1.a * q2.a - q1.b * q2.b - q1.c * q2.c - q1.d * q2.d,
-      q1.a * q2.b + q1.b * q2.a + q1.c * q2.d - q1.d * q2.c,
-      q1.a * q2.c - q1.b * q2.d + q1.c * q2.a + q1.d * q2.b,
-      q1.a * q2.d + q1.b * q2.c - q1.c * q2.b + q1.d * q2.a
-  )
-end
-
+--Returns a new Quaternion that represents the conjugate of this Quaternion
 function Quaternion:conjugate()
   return Quaternion.new(self.a, -self.b, -self.c, -self.d)
 end
 
+--Returns whether or not the two Quaternions have equal coefficient values.
 function Quaternion.__eq(q1, q2)
   local coeff1 = q1:coefficients()
   local coeff2 = q2:coefficients()
