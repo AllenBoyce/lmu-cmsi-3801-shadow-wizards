@@ -20,11 +20,14 @@ def first_then_lower_case(list_of_strings: list[str], predicate: Callable):
             return string.lower()
     return None
 
-# Write your powers generator here
+# Generates a series of exponents with the same base and an incrementing power, until the exponents value surpasses a given limit
 def powers_generator(base, limit):
+    #The power starts at 0
     current_power = 0
     while base ** current_power <= limit:
+        #Yield base to the power of the current power
         yield base ** current_power
+        #Increment current power
         current_power+=1
 
 # Write your say function here
@@ -70,6 +73,8 @@ class Quaternion:
     d: float
 
 
+    # Returns the string value of the Quaternion.
+    # String is represented as an equation consisting of the sum of all the Quaternion's parts
     def __str__(self):
         string = ""
         coefficients = self.coefficients
@@ -110,9 +115,11 @@ class Quaternion:
             return "0"
         return string
     
+    # Returns a Quaternion representing the sum of this Quaternion and the given addend
     def __add__(self, addend):
         return Quaternion(self.a + addend.a, self.b + addend.b, self.c + addend.c, self.d + addend.d)
     
+    # Returns a Quaternion representing the product of this Quaternion and the given factor
     def __mul__(self, factor):
         
         p = self.a*factor.a - self.b*factor.b - self.c*factor.c - self.d*factor.d
@@ -122,13 +129,16 @@ class Quaternion:
         
         return Quaternion(p, i, j, k)
     
+    #returns whether or not this Quaternion has equivalent coefficients as the given Quaternion.
     def __eq__(self, other):
         return self.coefficients == other.coefficients
     
+    #returns a Quaternion that represents the conjugate of this Quaternion
     @property
     def conjugate(self):
         return Quaternion(self.coefficients[0], -self.coefficients[1], -self.coefficients[2], -self.coefficients[3])
     
+    #returns a tuple with the coefficients of the Quaternion
     @property
     def coefficients(self):
         return (self.a, self.b, self.c, self.d)
