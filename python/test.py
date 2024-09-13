@@ -3,10 +3,10 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class Quaternion:
-    a: int
-    b: int
-    c: int
-    d: int
+    a: float
+    b: float
+    c: float
+    d: float
 
 
     def __str__(self):

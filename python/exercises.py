@@ -48,10 +48,10 @@ def meaningful_line_count(file_name: str) -> int:
 # Write your Quaternion class here
 @dataclass(frozen=True)
 class Quaternion:
-    a: int
-    b: int
-    c: int
-    d: int
+    a: float
+    b: float
+    c: float
+    d: float
 
 
     def __str__(self):
