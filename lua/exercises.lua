@@ -131,8 +131,10 @@ function Quaternion.__tostring(self)
           end
       end
   end
-  -- if string == "" then
-  --     return "0"
+  end
+  --If the string is empty at this point, there's no value in the Quaternion, and it's equal to 0.
+  if string == "" then
+      return "0"
   end
   return string
 end

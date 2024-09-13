@@ -58,8 +58,10 @@ function Quaternion.__tostring(self)
             end
         end
     end
-    -- if string == "" then
-    --     return "0"
+    end
+    --If the string is empty at this point, there's no value in the Quaternion, and it's equal to 0.
+    if string == "" then
+        return "0"
     end
     return string
 end
@@ -117,7 +119,8 @@ k = Quaternion.new(0, 0, 0, 1)
 -- print(i * j == k)
 -- print(j * k == i)
 -- print(j + i == Quaternion.new(0.0, 1.0, 1.0, 0.0))
--- print(tostring(zero) == "0")
+print(tostring(zero))
+print(tostring(zero) == "0")
 print(tostring(j))
 print(tostring(j) == "j")
 print(tostring(k:conjugate()))
@@ -128,6 +131,6 @@ print(tostring(j + k))
 print(tostring(j + k) == "j+k")
 print(tostring(Quaternion.new(0.0, -1.0, 0.0, 2.25)))
 print(tostring(Quaternion.new(0.0, -1.0, 0.0, 2.25)) == "-i+2.25k")
--- print(tostring(Quaternion.new(-20.0, -1.75, 13.0, -2.25)) == "-20.0-1.75i+13.0j-2.25k")
--- print(tostring(Quaternion.new(-1.0, -2.0, 0.0, 0.0)) == "-1.0-2.0i")
--- print(tostring(Quaternion.new(1.0, 0.0, -2.0, 5.0)) == "1.0-2.0j+5.0k")
+-- -- print(tostring(Quaternion.new(-20.0, -1.75, 13.0, -2.25)) == "-20.0-1.75i+13.0j-2.25k")
+-- -- print(tostring(Quaternion.new(-1.0, -2.0, 0.0, 0.0)) == "-1.0-2.0i")
+-- -- print(tostring(Quaternion.new(1.0, 0.0, -2.0, 5.0)) == "1.0-2.0j+5.0k")
