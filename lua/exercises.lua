@@ -38,6 +38,20 @@ function powers_generator(ofBase, upTo)
 end
 
 -- Write your say function here
+function say(word)
+  if word == nil then
+    return ""
+  end
+  
+  local function chain(next)
+    if next == nil then
+      return word
+    else
+      return say(word .. " " .. next)
+    end
+  end
+  return chain
+end
 
 -- Write your line count function here
   function meaningful_line_count(file_name)
