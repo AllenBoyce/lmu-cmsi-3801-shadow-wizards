@@ -47,13 +47,15 @@ function say(word)
   if word == nil then
     return ""
   end
-  
+  --if there is no string or it is blank it'll return nothing
   local function chain(next)
     if next == nil then
       return word
+  --if there is no word next then it'll go back and reprint the previous words
     else
       return say(word .. " " .. next)
     end
+  --this joins the different words to make them 'whole'
   end
   return chain
 end
