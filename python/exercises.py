@@ -28,6 +28,22 @@ def powers_generator(base, limit):
         current_power+=1
 
 # Write your say function here
+def say(word=None):
+    words = [] 
+    if word is not None:
+        words.append(word)
+
+    if word is None:
+        return ""
+
+    def chain (next_word=None):
+        nonlocal words
+        if next_word is None:
+            return " ".join(words)
+        else:
+            words.append(next_word)      
+            return chain
+    return chain
 
 # Write your line count function here
 def meaningful_line_count(file_name: str) -> int:
