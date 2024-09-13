@@ -38,14 +38,16 @@ def say(word=None):
 
     if word is None:
         return ""
-
+    #if there is no string or it is blank it'll return nothing
     def chain (next_word=None):
         nonlocal words
         if next_word is None:
             return " ".join(words)
+    #if there is no word next then it'll go back and reprint the previous words
         else:
             words.append(next_word)      
             return chain
+    #this joins the different words to make them 'whole'
     return chain
 
 # Write your line count function here
