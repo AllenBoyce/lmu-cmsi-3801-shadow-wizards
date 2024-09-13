@@ -30,6 +30,28 @@ export function* powersGenerator({ ofBase, upTo }) {
 }
 
 // Write your say function here
+function say(word) {
+  let accumulated = word || "";
+
+  if (word === undefined) {
+    return "";
+  }
+
+  function chain(next) {
+    if (next === undefined) {
+      return accumulated;
+    } else {
+      if (accumulated.length > 0) {
+        accumulated += " " + next;
+      } else {
+        accumulated = next;
+      }
+      return chain;
+    }
+  }
+  return chain;
+}
+
 
 // Write your line count function here
 export async function meaningfulLineCount(fileName) {
