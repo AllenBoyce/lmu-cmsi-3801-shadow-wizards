@@ -107,30 +107,42 @@ export class Quaternion {
   }
 
   toString() {
-    const coefTypes = ["", "i", "j", "k"]
-    let stringVer = ""
+    //List with the different variables used in each part of the Quaternion
+    const coefficientTypes = ["", "i", "j", "k"]
+    let quaternionString = ""
 
     //Run this loop 4 times, one for each coefficient in the Quaternion
     for (let i = 0; i < 4; i++) {
+      //curentCoefficient is whichever coefficient value the loop is currently adding to the string
       const currentCoefficient = this.coefficients[i]
+
+      //Skip if the coefficient is 0.
       if (currentCoefficient !== 0) {
-        if (stringVer !== "" && currentCoefficient > 0) {
-          stringVer += "+"
+        //If the string isn't empty and the current coefficient is positive
+        //We add the plus sign before we add the coefficient value
+        if (quaternionString !== "" && currentCoefficient > 0) {
+          quaternionString += "+"
         }
 
         if (currentCoefficient === 1 && i !== 0) {
-          stringVer += coefTypes[i]
+          //If the current coefficient is 1 and it isn't the first coefficient,
+          //Then we only add the variable letter
+          quaternionString += coefficientTypes[i]
         } else if (currentCoefficient === -1 && i !== 0) {
-          stringVer += `-${coefTypes[i]}`
+          //If the current coefficient is -1 and it isn't the first coefficient,
+          //Then we only add the minus sign and the variable letter.
+          quaternionString += `-${coefficientTypes[i]}`
         } else {
-          stringVer += `${currentCoefficient}${coefTypes[i]}`
+          //Otherwise, we're good to just add the current coefficient and the current coefficient type.
+          quaternionString += `${currentCoefficient}${coefficientTypes[i]}`
         }
       }
     }
-    if (stringVer == "") {
+    //If the string is empty, all the coefficients are 0. So return 0.
+    if (quaternionString == "") {
       return "0"
     }
-    return stringVer
+    return quaternionString
   }
 
   equals(q) {
