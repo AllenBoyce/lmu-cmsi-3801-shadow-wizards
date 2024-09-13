@@ -48,3 +48,71 @@ export async function meaningfulLineCount(fileName) {
 }
 
 // Write your Quaternion class here
+export class Quaternion {
+  constructor(a, b, c, d) {
+    this.a = a
+    this.b = b
+    this.c = c
+    this.d = d
+    Object.freeze(this)
+  }
+
+  plus(q) {
+    return new Quaternion(
+      this.a + q.a,
+      this.b + q.b,
+      this.c + q.c,
+      this.d + q.d
+    )
+  }
+
+  times(q) {
+    return new Quaternion(
+      this.a * q.a - this.b * q.b - this.c * q.c - this.d * q.d,
+      this.a * q.b + this.b * q.a + this.c * q.d - this.d * q.c,
+      this.a * q.c - this.b * q.d + this.c * q.a + this.d * q.b,
+      this.a * q.d + this.b * q.c - this.c * q.b + this.d * q.a
+    )
+  }
+
+  get conjugate() {
+    return new Quaternion(this.a, -this.b, -this.c, -this.d)
+  }
+
+  get coefficients() {
+    return [this.a, this.b, this.c, this.d]
+  }
+
+  toString() {
+    const coefTypes = ["", "i", "j", "k"]
+    let stringVer = ""
+
+    for (let i = 0; i < 4; i++) {
+      const coef = this.coefficients[i]
+      if (coef !== 0) {
+        if (stringVer !== "" && coef > 0) {
+          stringVer += "+"
+        }
+
+        if (coef === 1 && i !== 0) {
+          stringVer += coefTypes[i]
+        } else if (coef === -1 && i !== 0) {
+          stringVer += `-${coefTypes[i]}`
+        } else {
+          stringVer += `${coef}${coefTypes[i]}`
+        }
+      }
+    }
+    if (stringVer == "") {
+      return 0
+    }
+    return stringVer
+  }
+
+  equals(q) {
+    if (!(q instanceof Quaternion)) {
+      return false
+    }
+    return this.a === q.a && this.b === q.b && this.c === q.c && this.d === q.d
+  }
+}
