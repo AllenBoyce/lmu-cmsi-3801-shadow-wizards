@@ -104,7 +104,7 @@ export class Quaternion {
       }
     }
     if (stringVer == "") {
-      return 0
+      return "0"
     }
     return stringVer
   }

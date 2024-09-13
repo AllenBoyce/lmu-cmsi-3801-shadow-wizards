@@ -66,6 +66,8 @@ class Quaternion:
             if(i < len(self.coefficients)-1):
                 if(self.coefficients[i+1] > 0):
                     stringVer += "+"
+        if stringVer == "":
+            return "0"
         return stringVer
     
     def __add__(self, addend):
