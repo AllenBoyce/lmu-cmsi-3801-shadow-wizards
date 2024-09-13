@@ -91,21 +91,68 @@ end
 function Quaternion.__tostring(self)
   local string = ""
   local coefficients = self:coefficients()
+
+  --The variables that correspond to each part of the Quaternion. The first element is an empty string because there is no variable.
   local variableLetters = {"","i","j","k"}
+
   for i = 1, 4 do
-      if coefficients[i] ~= 0 then
-          string = string .. tostring(coefficients[i]) .. variableLetters[i]
-      end
-      if i < 4 then
+
+      --The first variable is an exception since it doesn't have a variable to it.
+      --We just want to add its coefficient, so long as it isn't 0.
+      if i == 1 and coefficients[1] ~= 0 then
+          string = string .. coefficients[i]
+      else
+      
+          --If the coefficient is zero, skip this variable
+          if coefficients[i] ~= 0 then
+
+              --If the coefficient is 1, we want to skip adding 1 to the string, UNLESS it's the first variable
+              
+              if coefficients[i] ~= 1 then
+
+                  --If the coefficient is negative 1, just add '-' instead of -1
+                  if coefficients[i] == -1 then
+                      string = string .. "-"
+                  --Otherwise, add the whole coefficient: sign and value.
+                  else
+                      string = string .. tostring(coefficients[i]) 
+                  end
+              end
+              --Add the variable letter after the coefficient.
+              string = string .. variableLetters[i]
+          end
+
+      --Add the plus according to the value of the next coefficient.
+      --If this is the last coefficient, there'll be no plus.
+      -- If the string is empty, don't add the plus operator.
+      if i < 4 and string ~="" then
           if coefficients[i+1] > 0 then
               string = string .. "+"
           end
       end
   end
-  if string == "" then
-      return "0"
+  -- if string == "" then
+  --     return "0"
   end
   return string
+end
+
+function Quaternion.__add(q1, q2)
+  return Quaternion.new(
+      q1.a + q2.a,
+      q1.b + q2.b,
+      q1.c + q2.c,
+      q1.d + q2.d
+  )
+end
+
+function Quaternion.__mul(q1, q2)
+  return Quaternion.new(
+      q1.a * q2.a - q1.b * q2.b - q1.c * q2.c - q1.d * q2.d,
+      q1.a * q2.b + q1.b * q2.a + q1.c * q2.d - q1.d * q2.c,
+      q1.a * q2.c - q1.b * q2.d + q1.c * q2.a + q1.d * q2.b,
+      q1.a * q2.d + q1.b * q2.c - q1.c * q2.b + q1.d * q2.a
+  )
 end
 
 function Quaternion.__add(q1, q2)
