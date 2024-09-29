@@ -22,9 +22,17 @@ public class Exercises {
 
     // Write your first then lower case function here
 
+    static Optional<String> firstThenLowerCase(List<String> listOfStrings, Predicate<String> predicateToCheck) {
+        var streamOfStrings = listOfStrings.stream()
+        .filter(predicateToCheck)
+        .map(String::toLowerCase)
+        .findFirst(); 
+        return streamOfStrings;
+    }
+
     // Write your say function here
 
-    // Write your line count function here
+    // Write your line count function her
 }
 
 // Write your Quaternion record class here
