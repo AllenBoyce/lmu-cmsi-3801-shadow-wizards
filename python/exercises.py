@@ -81,8 +81,7 @@ class Quaternion:
         string = ""
         coefficients = self.coefficients
 
-        # The variables that correspond to each part of the Quaternion. 
-        # The first element is an empty string because there is no variable.
+        
         variable_letters = ["", "i", "j", "k"]
 
         for i in range(4):
