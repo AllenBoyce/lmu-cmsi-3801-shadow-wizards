@@ -27,16 +27,16 @@ data class Quaternion(val a: Double, val b: Double, val c: Double, val d: Double
     companion object {
         val ZERO = Quaternion(0.0,0.0,0.0,0.0)
         val ONE = Quaternion(1.0,0.0,0.0,0.0)
-        val I = Quaternion(0.0,1.0,0.0,0,0)
+        val I = Quaternion(0.0,1.0,0.0,0.0)
         val J = Quaternion(0.0,0.0,1.0,0.0)
         val K = Quaternion(0.0,0.0,0.0,1.0)
     }
 
-    operator fun plus(other: Quaternion) {
+    operator fun plus(other: Quaternion): Quaternion {
         return Quaternion(a + other.a, b + other.b, c + other.c, d + other.d)
     }
 
-    operator fun times(other: Quaternion) {
+    operator fun times(other: Quaternion): Quaternion {
         return Quaternion(
             a * other.a - b * other.b - c * other.c - d * other.d,
             a * other.b + b * other.a + c * other.d - d * other.c,
@@ -45,8 +45,57 @@ data class Quaternion(val a: Double, val b: Double, val c: Double, val d: Double
         )
     }
 
-    fun coefficients(): List<Double> = return listOf(a, b, c, d)
+    fun coefficients(): List<Double> {
+        return listOf(a, b, c, d)
+    }
 
-    fun conjugate(): Quaternion = return Quaternion(a, -b, c, -d)
+    fun conjugate(): Quaternion {
+        return Quaternion(a, -b, -c, -d)
+    }
+    override fun toString(): String {
+        var retVal = ""
+        val variableLetters = arrayOf("", "i", "j", "k")
+        val coefficients = ArrayList(coefficients())
+
+        for (i in 0 until 4) {
+            // The first variable is an exception since it doesn't have a variable to it.
+            // We just want to add its coefficient, so long as it isn't 0.
+            if (i == 0 && coefficients[0] != 0.0) {
+                retVal += coefficients[i]
+            } else {
+                // If the coefficient is zero, skip this variable
+                if (coefficients[i] != 0.0) {
+                    // If the coefficient is 1, we want to skip adding 1 to the string, UNLESS it's the first variable
+                    if (coefficients[i] != 1.0) {
+                        // If the coefficient is negative 1, just add '-' instead of -1
+                        if (coefficients[i] == -1.0) {
+                            retVal += "-"
+                        }
+                        // Otherwise, add the whole coefficient: sign and value.
+                        else {
+                            retVal += coefficients[i]
+                        }
+                    }
+
+                    // Add the variable letter after the coefficient.
+                    retVal += variableLetters[i]
+                }
+            }
+
+            // Add the plus according to the value of the next coefficient.
+            // If this is the last coefficient, there'll be no plus.
+            // If the string is empty, don't add the plus operator.
+            if (i < 3 && retVal.isNotEmpty()) {
+                if (coefficients[i+1] > 0) {
+                    retVal += "+"
+                }
+            }
+    }
+    // If the string is empty at this point, there's no value in the Quaternion, and it's equal to 0.
+    if (retVal.isEmpty()) {
+        return "0"
+    }
+    return retVal
 }
+
 // Write your Binary Search Tree interface and implementing classes here
