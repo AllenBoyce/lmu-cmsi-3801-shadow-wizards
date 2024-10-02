@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 
 public class Exercises {
     static Map<Integer, Long> change(long amount) {
@@ -33,8 +35,18 @@ public class Exercises {
 
     // Write your say function here
 
-    // Write your line count function her
-
+    // Write your line count function here
+    
+    static long meaningfulLineCount(String fileName) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))){
+            return reader.lines()
+            .filter(line -> !line.trim().isEmpty())
+            .filter(line -> !line.trim().startsWith("#"))
+            .count();
+        } catch (FileNotFoundException e) {
+            throw new FileNotFoundException("No such file");
+        }
+    }
 
     // Write your Quaternion record class here
     public static class Quaternion {
