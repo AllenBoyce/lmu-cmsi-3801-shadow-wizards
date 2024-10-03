@@ -34,6 +34,24 @@ func say(_ word: String = "") -> Sayer {
 
 
 // Write your meaningfulLineCount function here
+func meaningfulLineCount(_ fileName: String) async -> Result<Int, Error> {
+    var lineCount: Int = 0
+    let fileURL:URL = URL(fileURLWithPath: fileName)
+    do {
+        for try await line: String in fileURL.lines{
+            var trimmedLine = line.trimmingCharacters(in: .whitespaces)
+            if !trimmedLine.isEmpty {
+                if trimmedLine[trimmedLine.startIndex] != "#" {
+                    lineCount += 1
+                }
+            }
+        }
+    }
+    catch {
+        return .failure(NoSuchFileError())
+    }
+    return .success(lineCount)
+}
 
 // Write your Quaternion struct here
 
