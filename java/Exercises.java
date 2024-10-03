@@ -35,6 +35,30 @@ public class Exercises {
 
     // Write your say function here
 
+    public class PhraseBuilder {
+
+        // Static record to hold the phrase and allow chaining
+        static record Sayer(String phrase) {
+
+            // Method to chain words (add words to the phrase)
+            Sayer and(String word) {
+                if (word != null && !word.isBlank()) {
+                    // Concatenate the new word with the existing phrase, with a space in between if needed
+                    return new Sayer(phrase.isBlank() ? word : phrase + " " + word);
+                }
+                return this;
+            }
+        }
+        // Method to start the chain with an empty phrase
+        public static Sayer say() {
+            return new Sayer("");  // Starts with an empty string
+        }
+        // Method to start the chain with an initial word
+        public static Sayer say(String word) {
+            return new Sayer(word);  // Starts with the provided word
+        }
+    }
+
     // Write your line count function here
     
     static long meaningfulLineCount(String fileName) throws IOException {

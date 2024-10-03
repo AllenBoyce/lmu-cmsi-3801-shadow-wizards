@@ -21,6 +21,18 @@ func firstThenLowerCase(of array_of_strings: [String], satisfying predicate: (St
 }
 // Write your say function here
 
+struct Sayer {
+    let phrase: String
+    func and (_ word: String) -> Sayer {
+        let newPhrase = phrase.isEmpty ? word : phrase + " " + word
+        return Sayer(phrase: phrase + " " + word)
+    }
+}
+func say(_ word: String = "") -> Sayer {
+    return Sayer(phrase: word)
+}
+
+
 // Write your meaningfulLineCount function here
 
 // Write your Quaternion struct here

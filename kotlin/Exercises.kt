@@ -20,6 +20,15 @@ fun firstThenLowerCase(listOfStrings: List<String>, predicateToCheck: (String) -
 }
 // Write your say function here
 
+data class Say(val phrase: String) {
+    fun and (nextPhrase: String): Say {
+        return Say("$phrase $nextPhrase")
+    }
+}
+fun say(phrase: String = ""): Say {
+    return Say(phrase)
+}
+
 // Write your meaningfulLineCount function here
 
 // Write your Quaternion data class here
