@@ -30,7 +30,26 @@ fun say(phrase: String = ""): Say {
 }
 
 // Write your meaningfulLineCount function here
-
+fun meaningfulLineCount(fileName: String): Long {
+    var lineCount: Long = 0;
+    try {
+        val file: File = File(fileName)
+        file.bufferedReader().use { reader -> 
+        reader.forEachLine { line ->
+            var trimmedLine = line.trim()
+            if (trimmedLine.isEmpty() == false) {
+                if (trimmedLine.first() != '#') {
+                    lineCount++
+                }
+            }
+            }
+        }
+    }
+    catch(e: IOException) {
+        throw IOException("No such file", e)
+    }
+    return lineCount
+}
 // Write your Quaternion data class here
 data class Quaternion(val a: Double, val b: Double, val c: Double, val d: Double) {
     companion object {
