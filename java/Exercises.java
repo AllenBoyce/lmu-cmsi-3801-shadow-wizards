@@ -35,7 +35,7 @@ public class Exercises {
 
     // Write your say function here
 
-    public class PhraseBuilder {
+
 
         // Static record to hold the phrase and allow chaining
         static record Sayer(String phrase) {
@@ -57,7 +57,7 @@ public class Exercises {
         public static Sayer say(String word) {
             return new Sayer(word);  // Starts with the provided word
         }
-    }
+    
 
     // Write your line count function here
     
