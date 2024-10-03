@@ -228,16 +228,27 @@ final class Node implements BinarySearchTree {
 
     @Override
     public BinarySearchTree insert(String val) {
-        if(value.compareTo(this.value) < 0) {
+        if (val.compareTo(this.value) < 0) {
             return new Node(this.value, left.insert(val), right);
-        }
-        else {
+        } else if (val.compareTo(this.value) > 0) {
             return new Node(this.value, left, right.insert(val));
+        } else {
+            return this;
         }
     }
 
     @Override
     public String toString() {
-        return "(" + left + value + right + ")";
+        String returnVal = "(";
+        if(left.size() != 0) {
+            returnVal += left;
+        }
+        returnVal += value;
+        if(right.size() != 0) {
+            returnVal += right;
+        }
+        returnVal += ")";
+        return returnVal;
+        // return "(" + left + value + right + ")";
     }
 }
