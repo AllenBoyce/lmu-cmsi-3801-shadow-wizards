@@ -140,3 +140,60 @@ struct Quaternion: CustomStringConvertible, Equatable {
 }
 
 // Write your Binary Search Tree enum here
+indirect enum BinarySearchTree {
+    case empty
+    case node(value: String, left: BinarySearchTree, right: BinarySearchTree)
+    
+    var size: Int {
+        switch self {
+        case .empty:
+            return 0
+        case .node(_, let left, let right):
+            return 1 + left.size + right.size
+        }
+    }
+    
+    func contains(_ value: String) -> Bool {
+        switch self {
+        case .empty:
+            return false
+        case .node(let nodeValue, let left, let right):
+            return nodeValue == value || left.contains(value) || right.contains(value)
+        }
+    }
+    
+    func insert(_ value: String) -> BinarySearchTree {
+        switch self {
+        case .empty:
+            return .node(value: value, left: .empty, right: .empty)
+        case .node(let nodeValue, let left, let right):
+            if value < nodeValue {
+                return .node(value: nodeValue, left: left.insert(value), right: right)
+            } else if value > nodeValue {
+                return .node(value: nodeValue, left: left, right: right.insert(value))
+            } else {
+                return self
+            }
+        }
+    }
+}
+
+extension BinarySearchTree: CustomStringConvertible {
+    var description: String {
+        switch self {
+        case .empty:
+            return "()"
+        case .node(let value, let left, let right):
+            var result = "("
+            if case .node = left {
+                result += left.description
+            }
+            result += value
+            if case .node = right {
+                result += right.description
+            }
+            result += ")"
+            return result
+        }
+    }
+}
