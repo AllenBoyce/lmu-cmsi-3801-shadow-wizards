@@ -29,7 +29,7 @@ fun say(phrase: String = ""): Say {
     return Say(phrase)
 }
 
-// Write your meaningfulLineCount function here
+Write your meaningfulLineCount function here
 fun meaningfulLineCount(fileName: String): Long {
     var lineCount: Long = 0;
     try {
@@ -50,6 +50,7 @@ fun meaningfulLineCount(fileName: String): Long {
     }
     return lineCount
 }
+
 // Write your Quaternion data class here
 data class Quaternion(val a: Double, val b: Double, val c: Double, val d: Double) {
     companion object {
@@ -125,5 +126,57 @@ data class Quaternion(val a: Double, val b: Double, val c: Double, val d: Double
     }
     return retVal
 }
+}
 
 // Write your Binary Search Tree interface and implementing classes here
+sealed interface BinarySearchTree {
+    fun size(): Int
+    fun contains(value: String): Boolean
+    fun insert(value: String): BinarySearchTree
+
+object Empty : BinarySearchTree {
+    override fun size(): Int = 0
+
+    override fun contains(value: String): Boolean = false
+
+    override fun insert(value: String): BinarySearchTree = Node(value, this, this)
+
+    override fun toString(): String = "()"
+}
+
+data class Node(
+    val value: String,
+    val left: BinarySearchTree = BinarySearchTree.Empty,
+    val right: BinarySearchTree = BinarySearchTree.Empty
+) : BinarySearchTree {
+
+    override fun size(): Int = 1 + left.size() + right.size()
+
+    override fun contains(value: String): Boolean =
+        when {
+            this.value == value -> true
+            value < this.value -> left.contains(value)
+            else -> right.contains(value)
+        }
+
+    override fun insert(value: String): BinarySearchTree =
+        when {
+            value < this.value -> Node(this.value, left.insert(value), right)
+            value > this.value -> Node(this.value, left, right.insert(value))
+            else -> this
+        }
+
+    override fun toString(): String {
+        var returnVal = "("
+        if (left.size() != 0) {
+            returnVal += left.toString()
+        }
+        returnVal += value
+        if (right.size() != 0) {
+            returnVal += right.toString()
+        }
+        returnVal += ")"
+        return returnVal
+    }
+}
+}
