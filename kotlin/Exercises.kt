@@ -136,11 +136,8 @@ sealed interface BinarySearchTree {
 
 object Empty : BinarySearchTree {
     override fun size(): Int = 0
-
     override fun contains(value: String): Boolean = false
-
     override fun insert(value: String): BinarySearchTree = Node(value, this, this)
-
     override fun toString(): String = "()"
 }
 
