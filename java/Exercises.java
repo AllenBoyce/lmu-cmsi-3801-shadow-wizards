@@ -8,7 +8,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
 
 public class Exercises {
     static Map<Integer, Long> change(long amount) {
@@ -23,8 +22,6 @@ public class Exercises {
         return counts;
     }
 
-    // Write your first then lower case function here
-
     static Optional<String> firstThenLowerCase(List<String> listOfStrings, Predicate<String> predicateToCheck) {
         var streamOfStrings = listOfStrings.stream()
         .filter(predicateToCheck)
@@ -32,8 +29,6 @@ public class Exercises {
         .findFirst(); 
         return streamOfStrings;
     }
-
-    // Write your say function here
     
     static record Sayer(String phrase) {
 
@@ -49,8 +44,6 @@ public class Exercises {
     public static Sayer say(String word) {
         return new Sayer(word != null ? word : "");
     }
-
-    // Write your line count function here
     
     static long meaningfulLineCount(String fileName) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))){
@@ -126,40 +119,26 @@ record Quaternion(double a, double b, double c, double d) {
         ArrayList<Double> coefficients = new ArrayList<Double>(coefficients());
 
     for (int i = 0; i < 4; i++) {
-        // The first variable is an exception since it doesn't have a variable to it.
-        // We just want to add its coefficient, so long as it isn't 0.
         if (i == 0 && coefficients.get(0) != 0) {
             retVal += (coefficients.get(i));
         } else {
-            // If the coefficient is zero, skip this variable
             if (coefficients.get(i) != 0) {
-                // If the coefficient is 1, we want to skip adding 1 to the string, UNLESS it's the first variable
                 if (coefficients.get(i) != 1) {
-                    // If the coefficient is negative 1, just add '-' instead of -1
                     if (coefficients.get(i) == -1) {
                         retVal += ("-");
                     }
-                    // Otherwise, add the whole coefficient: sign and value.
                     else {
                         retVal += (coefficients.get(i));
                     }
                 }
-                
-                // Add the variable letter after the coefficient.
                 retVal += (variableLetters[i]);
             }
         }
 
-        // Add the plus according to the value of the next coefficient.
-        // If this is the last coefficient, there'll be no plus.
-        // If the string is empty, don't add the plus operator.
-        if (i < 3 && retVal.length() > 0) {
-            if (coefficients.get(i+1) > 0) {
+        if (i < 3 && retVal.length() > 0 && coefficients.get(i+1) > 0) {
                 retVal += ("+");
-            }
         }
     }
-    // If the string is empty at this point, there's no value in the Quaternion, and it's equal to 0.
     if (retVal.length() == 0) {
         return "0";
     }
@@ -167,7 +146,7 @@ record Quaternion(double a, double b, double c, double d) {
     }
 }
 
-// Write your BinarySearchTree sealed interface and its implementations here
+
 sealed interface BinarySearchTree permits Empty, Node {
     int size();
     boolean contains(String value);
@@ -240,6 +219,5 @@ final class Node implements BinarySearchTree {
         }
         returnVal += ")";
         return returnVal;
-        // return "(" + left + value + right + ")";
     }
 }

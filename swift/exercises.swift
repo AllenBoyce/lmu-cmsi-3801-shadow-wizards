@@ -15,11 +15,9 @@ func change(_ amount: Int) -> Result<[Int:Int], NegativeAmountError> {
     return .success(counts)
 }
 
-// Write your first then lower case function here
 func firstThenLowerCase(of array_of_strings: [String], satisfying predicate: (String) -> Bool) -> String? {
     return array_of_strings.first(where: predicate)?.lowercased()
 }
-// Write your say function here
 
 struct Sayer {
     let phrase: String
@@ -32,14 +30,12 @@ func say(_ word: String = "") -> Sayer {
     return Sayer(phrase: word)
 }
 
-
-// Write your meaningfulLineCount function here
 func meaningfulLineCount(_ fileName: String) async -> Result<Int, Error> {
     var lineCount: Int = 0
     let fileURL:URL = URL(fileURLWithPath: fileName)
     do {
         for try await line: String in fileURL.lines{
-            var trimmedLine = line.trimmingCharacters(in: .whitespaces)
+            let trimmedLine = line.trimmingCharacters(in: .whitespaces)
             if !trimmedLine.isEmpty {
                 if trimmedLine[trimmedLine.startIndex] != "#" {
                     lineCount += 1
@@ -52,8 +48,6 @@ func meaningfulLineCount(_ fileName: String) async -> Result<Int, Error> {
     }
     return .success(lineCount)
 }
-
-// Write your Quaternion struct here
 
 struct Quaternion: CustomStringConvertible, Equatable {
     let a, b, c, d: Double
@@ -90,47 +84,31 @@ struct Quaternion: CustomStringConvertible, Equatable {
             d: lhs.a * rhs.d + lhs.b * rhs.c - lhs.c * rhs.b + lhs.d * rhs.a
         )
     }
-
         var description: String {
         var retVal = ""
         let variableLetters = ["", "i", "j", "k"]
         let coefficients = self.coefficients
 
         for i in 0..<4 {
-            // The first variable is an exception since it doesn't have a variable to it.
-            // We just want to add its coefficient, so long as it isn't 0.
             if i == 0 && coefficients[0] != 0 {
                 retVal += "\(coefficients[i])"
             } else {
-                // If the coefficient is zero, skip this variable
                 if coefficients[i] != 0 {
-                    // If the coefficient is 1, we want to skip adding 1 to the string, UNLESS it's the first variable
                     if coefficients[i] != 1 {
-                        // If the coefficient is negative 1, just add '-' instead of -1
                         if coefficients[i] == -1 {
                             retVal += "-"
                         }
-                        // Otherwise, add the whole coefficient: sign and value.
                         else {
                             retVal += "\(coefficients[i])"
                         }
                     }
-                    
-                    // Add the variable letter after the coefficient.
                     retVal += variableLetters[i]
                 }
             }
-
-            // Add the plus according to the value of the next coefficient.
-            // If this is the last coefficient, there'll be no plus.
-            // If the string is empty, don't add the plus operator.
-            if i < 3 && !retVal.isEmpty {
-                if coefficients[i+1] > 0 {
+            if i < 3 && !retVal.isEmpty && coefficients[i+1] > 0{ 
                     retVal += "+"
-                }
             }
         }
-        // If the string is empty at this point, there's no value in the Quaternion, and it's equal to 0.
         if retVal.isEmpty {
             return "0"
         }
@@ -139,7 +117,6 @@ struct Quaternion: CustomStringConvertible, Equatable {
     }
 }
 
-// Write your Binary Search Tree enum here
 indirect enum BinarySearchTree {
     case empty
     case node(value: String, left: BinarySearchTree, right: BinarySearchTree)
