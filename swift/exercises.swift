@@ -21,11 +21,20 @@ func firstThenLowerCase(of array_of_strings: [String], satisfying predicate: (St
 
 struct Sayer {
     let phrase: String
-    func and (_ word: String) -> Sayer {
-        let newPhrase = phrase.isEmpty ? word : phrase + " " + word
-        return Sayer(phrase: phrase + " " + word)
+    
+    func and(_ word: String) -> Sayer {
+        let newPhrase: String
+        
+        if phrase.isEmpty {
+            newPhrase = word.isEmpty ? " " : word
+        } else {
+            newPhrase = phrase + (word.isEmpty ? " " : " ") + word
+        }
+        
+        return Sayer(phrase: newPhrase)
     }
 }
+
 func say(_ word: String = "") -> Sayer {
     return Sayer(phrase: word)
 }
