@@ -15,9 +15,13 @@ export function change(amount: bigint): Map<bigint, bigint> {
 
 // Write your first then apply function here
 
-export function firstThenApply<T, U>(items: T[], predicate: (item: T) => boolean, consumer: (item: T) => U): U | undefined {
-  let potentialCandidate: any | undefined = items.find(predicate) 
-  if (potentialCandidate != undefined){
+export function firstThenApply<T, U>(
+  items: T[],
+  predicate: (item: T) => boolean,
+  consumer: (item: T) => U
+): U | undefined {
+  let potentialCandidate: any | undefined = items.find(predicate)
+  if (potentialCandidate != undefined) {
     return consumer(potentialCandidate)
   }
   return undefined
@@ -30,8 +34,8 @@ export async function meaningfulLineCount(fileName: string) {
   let lineCount: number = 0
   const fileToCheck = await open(fileName, "r")
   for await (const line of fileToCheck.readLines()) {
-    if(line.trim() !== ""){
-      if(line.trim()[0] !== "#"){
+    if (line.trim() !== "") {
+      if (line.trim()[0] !== "#") {
         lineCount++
       }
     }
@@ -41,4 +45,31 @@ export async function meaningfulLineCount(fileName: string) {
 
 // Write your shape type and associated functions here
 
+export type Shape = Sphere | Box
+
+interface Sphere {
+  kind: "Sphere"
+  radius: number
+}
+
+interface Box {
+  kind: "Box"
+  width: number
+  height: number
+  depth: number
+}
+
+export function surfaceArea(shape: Shape): number {
+  return 0
+}
+export function volume(shape: Shape): number {
+  return 0
+}
+
 // Write your binary search tree implementation here
+export interface BinarySearchTree<T> {
+  size(): number
+  insert(value: T): BinarySearchTree<T>
+  contains(value: T): boolean
+  inorder(): Iterable<T>
+}
