@@ -23,10 +23,21 @@ export function firstThenApply<T, U>(items: T[], predicate: (item: T) => boolean
   return undefined
 }
 
-
 // Write your powers generator here
 
 // Write your line count function here
+export async function meaningfulLineCount(fileName: string) {
+  let lineCount: number = 0
+  const fileToCheck = await open(fileName, "r")
+  for await (const line of fileToCheck.readLines()) {
+    if(line.trim() !== ""){
+      if(line.trim()[0] !== "#"){
+        lineCount++
+      }
+    }
+  }
+  return lineCount
+}
 
 // Write your shape type and associated functions here
 
