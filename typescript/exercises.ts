@@ -15,6 +15,15 @@ export function change(amount: bigint): Map<bigint, bigint> {
 
 // Write your first then apply function here
 
+export function firstThenApply<T, U>(items: T[], predicate: (item: T) => boolean, consumer: (item: T) => U): U | undefined {
+  let potentialCandidate: any | undefined = items.find(predicate) 
+  if (potentialCandidate != undefined){
+    return consumer(potentialCandidate)
+  }
+  return undefined
+}
+
+
 // Write your powers generator here
 
 // Write your line count function here
