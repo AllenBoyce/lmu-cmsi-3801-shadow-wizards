@@ -43,8 +43,6 @@ export async function meaningfulLineCount(fileName: string) {
   return lineCount
 }
 
-// Write your shape type and associated functions here
-
 export type Shape = Sphere | Box
 
 interface Sphere {
@@ -60,13 +58,22 @@ interface Box {
 }
 
 export function surfaceArea(shape: Shape): number {
-  return 0
+  switch (shape.kind) {
+    case "Sphere":
+      return 4 * Math.PI * shape.radius ** 2
+    case "Box":
+      return (
+        (shape.width * shape.height +
+          shape.height * shape.depth +
+          shape.width * shape.depth) *
+        2
+      )
+  }
 }
 export function volume(shape: Shape): number {
   return 0
 }
 
-// Write your binary search tree implementation here
 export interface BinarySearchTree<T> {
   size(): number
   insert(value: T): BinarySearchTree<T>
