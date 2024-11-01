@@ -76,9 +76,9 @@ export function surfaceArea(shape: Shape): number {
 export function volume(shape: Shape): number {
   switch (shape.kind) {
     case "Sphere":
-      return (4 / 3) * Math.PI * shape.radius ** 3 // (4/3)πr³
+      return (4 / 3) * Math.PI * shape.radius ** 3
     case "Box":
-      return shape.width * shape.height * shape.depth // w * h * d
+      return shape.width * shape.height * shape.depth
   }
 }
 

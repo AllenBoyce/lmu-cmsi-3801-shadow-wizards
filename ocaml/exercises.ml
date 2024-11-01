@@ -12,7 +12,7 @@ let change amount =
     in
     aux amount denominations
 
-(* Write your first then apply function here *)
+
 let first_then_apply array predicate consumer =
   match List.find_opt predicate array with
   | Some x -> consumer x
@@ -21,7 +21,7 @@ let first_then_apply array predicate consumer =
 let powers b = 
   Seq.unfold (fun n -> Some ( b ** float_of_int n, n + 1)) 0
 
-(* Write your line count function here *)
+
 let meaningful_line_count file_name =
   let file = open_in file_name in
   let rec aux count =
