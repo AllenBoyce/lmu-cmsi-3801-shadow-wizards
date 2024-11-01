@@ -3,6 +3,7 @@ module Exercises
     , Shape(..)
     , surfaceArea
     , volume
+    , powers
     , BST(..)
     , insert
     , inorder
@@ -32,7 +33,8 @@ change amount
 firstThenApply :: [a] -> (a -> Bool) -> (a -> b) -> Maybe b
 firstThenApply xs pred f = f <$> find pred xs
 
--- Write your infinite powers generator here
+powers :: Integral a => a -> [Integer]
+powers b = [fromIntegral b ^ n | n <- [0..]]
 
 meaningfulLineCount :: FilePath -> IO Int
 meaningfulLineCount path = do

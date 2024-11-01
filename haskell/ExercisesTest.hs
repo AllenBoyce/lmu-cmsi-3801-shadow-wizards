@@ -21,7 +21,6 @@ fixture =
     , ( "change 250", test_change 250 (10, 0, 0, 0) )
     , ( "change 100000000037", test_change 100000000037 (4000000001, 1, 0, 2) )
     , ( "change 10000000000005", test_change 10000000000005 (400000000000, 0, 1, 0) )
-    Uncomment the following lines as you implement the functions
     , ( "firstThenApply empty list", (firstThenApply [] (/= "") lower) == Nothing )
     , ( "firstThenApply lowercase ok", (firstThenApply ["", "A", "B"] (/= "") lower) == Just "a" )
     , ( "firstThenApply lengthOver3 no match"
@@ -58,8 +57,8 @@ fixture =
     ]
     -- Uncomment the following as needed as you implement your tests
     where
-        -- lower = unpack . toLower . pack
-        -- lengthOverThree = (> 3) . length
+        lower = unpack . toLower . pack
+        lengthOverThree = (> 3) . length
         x `is_approx` y = abs (x - y) < 0.0000001
         g = insert "G" Empty
         gb = insert "B" g
