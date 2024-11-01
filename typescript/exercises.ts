@@ -13,8 +13,6 @@ export function change(amount: bigint): Map<bigint, bigint> {
   return counts
 }
 
-// Write your first then apply function here
-
 export function firstThenApply<T, U>(
   items: T[],
   predicate: (item: T) => boolean,
@@ -27,9 +25,14 @@ export function firstThenApply<T, U>(
   return undefined
 }
 
-// Write your powers generator here
+function* powersOf(base: bigint): Generator<bigint> {
+  let exponent = 0n
+  while (true) {
+    yield base ** exponent
+    exponent += 1n
+  }
+}
 
-// Write your line count function here
 export async function meaningfulLineCount(fileName: string) {
   let lineCount: number = 0
   const fileToCheck = await open(fileName, "r")
@@ -71,7 +74,12 @@ export function surfaceArea(shape: Shape): number {
   }
 }
 export function volume(shape: Shape): number {
-  return 0
+  switch (shape.kind) {
+    case "Sphere":
+      return (4 / 3) * Math.PI * shape.radius ** 3
+    case "Box":
+      return shape.width * shape.height * shape.depth
+  }
 }
 
 export interface BinarySearchTree<T> {

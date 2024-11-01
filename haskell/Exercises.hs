@@ -46,7 +46,8 @@ volume (Box l w h) = l * w * h
 surfaceArea :: Shape -> Double
 surfaceArea (Sphere r) = 4 * pi * r^2
 surfaceArea (Box l w h) = 2 * (l * w + w * h + h * l)
--- Write your binary search tree algebraic type here
+
+
 data BST a
     = Empty
     | Node a (BST a) (BST a)
