@@ -22,7 +22,7 @@ let first_then_apply array predicate consumer =
 
 (* Write your line count function here *)
 let meaningful_line_count file_name =
-  let file = open_in filename in
+  let file = open_in file_name in
   let rec aux count =
     match input_line file with
     | exception End_of_file -> count
