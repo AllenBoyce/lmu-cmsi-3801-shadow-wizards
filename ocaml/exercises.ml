@@ -1,25 +1,28 @@
 exception Negative_Amount
 
 let change amount =
-  if amount < 0 then
-    raise Negative_Amount
-  else
-    let denominations = [25; 10; 5; 1] in
-    let rec aux remaining denominations =
-      match denominations with
-      | [] -> []
-      | d :: ds -> (remaining / d) :: aux (remaining mod d) ds
-    in
-    aux amount denominations
+	if amount < 0 then
+		raise Negative_Amount
+	else
+		let denominations = [25; 10; 5; 1] in
+		let rec aux remaining denominations =
+			match denominations with
+			| [] -> []
+			| d :: ds -> (remaining / d) :: aux (remaining mod d) ds
+		in
+		aux amount denominations
 
 
 let first_then_apply array predicate consumer =
-  match List.find_opt predicate array with
-  | Some x -> consumer x
-  | None -> None
+	match List.find_opt predicate array with
+	| Some x -> consumer x
+	| None -> None
 
-let powers b = 
-  Seq.unfold (fun n -> Some ( b ** float_of_int n, n + 1)) 0
+let powers_generator base =
+	let rec generate_from power () =
+		Seq.Cons (power, generate_from (power * base))
+	in
+	generate_from 1;;
 
 
 let meaningful_line_count filename =
@@ -42,33 +45,60 @@ let meaningful_line_count filename =
   Fun.protect ~finally (fun () -> count_lines 0);;
 
 type shape =
-| Box of { width : float; height : float; depth : float }
-| Sphere of { radius : float }
+| Sphere of float
+| Box of float * float * float
 
 let surface_area s =
 match s with
-| Box { width; height; depth } ->
-    2. *. (width *. height +. height *. depth +. depth *. width)
-| Sphere { radius } -> 4. *. Float.pi *. radius ** 2.
+| Box ( width, height, depth ) ->
+		2. *. (width *. height +. height *. depth +. depth *. width)
+| Sphere radius -> 4. *. Float.pi *. radius ** 2.
 
 let volume s =
 match s with
-| Box { width; height; depth } -> width *. height *. depth
-| Sphere { radius } -> (4. /. 3.) *. Float.pi *. radius ** 3.
+| Box (width, height, depth) -> width *. height *. depth
+| Sphere radius -> (4. /. 3.) *. Float.pi *. radius ** 3.
 
 let string_of_shape s =
 match s with
-| Box { width; height; depth } ->
-    Printf.sprintf "Box(width=%.2f, height=%.2f, depth=%.2f)" width height depth
-| Sphere { radius } ->
-    Printf.sprintf "Sphere(radius=%.2f)" radius
+| Box  (width, height, depth)  ->
+		Printf.sprintf "Box(width=%.2f, height=%.2f, depth=%.2f)" width height depth
+| Sphere  radius  ->
+		Printf.sprintf "Sphere(radius=%.2f)" radius
 
-let equal_shape s1 s2 =
-match (s1, s2) with
-| Box { width = w1; height = h1; depth = d1 }, Box { width = w2; height = h2; depth = d2 } ->
-    w1 = w2 && h1 = h2 && d1 = d2
-| Sphere { radius = r1 }, Sphere { radius = r2 } ->
-    r1 = r2
-| _, _ -> false
 
-(* Write your binary search tree implementation here *)
+type 'a binary_search_tree = 
+	| Empty
+	| Node of 'a binary_search_tree * 'a * 'a binary_search_tree
+
+let rec size tree = 
+	match tree with
+	| Empty -> 0
+	| Node (left, _, right) -> 1 + size left + size right;;
+
+let rec contains value tree =
+	match tree with
+	| Empty -> false
+	| Node (left, v, right) ->
+		if value = v then
+			true
+		else if value < v then
+			contains value left
+		else
+			contains value right;;
+
+let rec insert value tree =
+match tree with
+| Empty -> Node(Empty, value, Empty)
+| Node(left, v, right) ->
+		if value < v then
+			Node(insert value left, v, right)
+		else if value > v then
+			Node(left, v, insert value right)
+		else
+			tree
+
+let rec inorder tree =
+	match tree with
+	| Empty -> []
+	| Node (left, v, right) -> inorder left @ [v] @ inorder right;;
