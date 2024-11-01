@@ -22,16 +22,24 @@ let powers b =
   Seq.unfold (fun n -> Some ( b ** float_of_int n, n + 1)) 0
 
 
-let meaningful_line_count file_name =
-  let file = open_in file_name in
-  let rec aux count =
-    match input_line file with
-    | exception End_of_file -> count
-    | line -> if String.trim line = "" then aux count else aux (count + 1)
-  in
-  let count = aux 0 in
-  close_in file;
-  count;;
+  let meaningful_line_count filename =
+    let meaningful_line line =
+      let trimmed = String.trim line in
+      String.length trimmed > 0 && not (String.starts_with ~prefix: "#" trimmed)
+    in
+    let the_file = open_in filename in
+    let finally () = close_in the_file in
+    let rec count_lines count =
+      try
+       let line = input_line (the_file) in
+       if meaningful_line line then
+        count_lines (count + 1)
+       else
+        count_lines count
+     with
+      End_of_file -> count
+    in
+    Fun.protect ~finally (fun () -> count_lines 0);;
 
 type shape =
 | Box of { width : float; height : float; depth : float }
