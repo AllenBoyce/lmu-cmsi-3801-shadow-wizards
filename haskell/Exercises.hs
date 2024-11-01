@@ -8,7 +8,8 @@ module Exercises
     , inorder
     , contains
     , size
-      -- put the proper exports here
+    , firstThenApply
+    , meaningfulLineCount -- put the proper exports here
     ) where
 
 import qualified Data.Map as Map
@@ -28,13 +29,18 @@ change amount
                 (count, newRemaining) = remaining `divMod` d
                 newCounts = Map.insert d count counts
 
--- Write your first then apply function here
+firstThenApply :: [a] -> (a -> Bool) -> (a -> b) -> Maybe b
+firstThenApply xs pred f = f <$> find pred xs
 
 -- Write your infinite powers generator here
 
--- Write your line count function here
+meaningfulLineCount :: FilePath -> IO Int
+meaningfulLineCount path = do
+    contents <- readFile path
+    let fileLines = lines contents
+        filteredLines = filter (\line -> not (null line) && not (all isSpace line) && ((/='#') . head . dropWhile isSpace) line) fileLines
+    return (length filteredLines)
 
--- Write your shape data type here
 data Shape
     = Sphere Double
     | Box Double Double Double
